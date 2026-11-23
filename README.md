@@ -9,6 +9,6 @@ El botón «Consultar disponibilidad» (`consulta/`) guarda los datos en Google 
 **Si vuelves a publicar desde 3DVista:** index.htm se sobrescribe. Vuelve a agregar estas dos líneas después de `fonts.css` en `index.htm` y en `index.html`:
 
 ```html
-<link rel="stylesheet" href="consulta/consulta.css?v=2">
-<script src="consulta/consulta.js?v=2" defer></script>
+<link rel="stylesheet" href="consulta/consulta.css?v=3">
+<script src="consulta/consulta.js?v=3" defer></script>
 ```

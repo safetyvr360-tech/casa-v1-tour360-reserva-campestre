@@ -9,6 +9,8 @@
   // URL del despliegue web de Apps Script (termina en /exec).
   var ENDPOINT = 'https://script.google.com/macros/s/AKfycbwAHcE8RIIuZ-rlS_4C-pAkWzjHUL3TyyMRZCXuknLDqBtdZyw48s6OmAh1sPw42purKQ/exec';
   var TIEMPO_MAX_MS = 20000;
+  // Enlaces del tour que deben abrir el formulario en vez de la web.
+  var HOSTS_ASESORIA = ['lareservacampestre.com', 'www.lareservacampestre.com'];
 
   var html =
     '<button type="button" class="rc-abrir" aria-haspopup="dialog">Consultar disponibilidad</button>' +
@@ -53,11 +55,13 @@
       }, { passive: true });
     });
 
-    abrir.addEventListener('click', function () {
+    function mostrarFormulario() {
       fondo.hidden = false;
       if (!lotesCargados) { lotesCargados = true; cargarLotes(form.lote); }
       setTimeout(function () { form.nombre.focus(); }, 50);
-    });
+    }
+    abrir.addEventListener('click', mostrarFormulario);
+    redirigirAsesoria(mostrarFormulario);
     raiz.querySelector('.rc-cerrar').addEventListener('click', cerrar);
     fondo.addEventListener('click', function (e) { if (e.target === fondo) cerrar(); });
     form.addEventListener('submit', function (e) {
@@ -68,6 +72,30 @@
     function cerrar() {
       fondo.hidden = true;
       abrir.focus();
+    }
+  }
+
+  // El botón "Agenda tu asesoría" del skin de 3DVista abre la web de la marca.
+  // Se intercepta esa apertura para mostrar el formulario sin editar el tour
+  // (editar los scripts publicados activa la marca de agua de 3DVista).
+  function redirigirAsesoria(mostrarFormulario) {
+    var abrirOriginal = window.open;
+    window.open = function (url) {
+      if (esWebAsesoria(url)) {
+        mostrarFormulario();
+        // 3DVista llama .focus() sobre la ventana devuelta.
+        return { focus: function () {}, close: function () {}, closed: true };
+      }
+      return abrirOriginal.apply(window, arguments);
+    };
+  }
+
+  function esWebAsesoria(url) {
+    try {
+      var u = new URL(String(url), location.href);
+      return HOSTS_ASESORIA.indexOf(u.hostname) !== -1 && (u.pathname === '/' || u.pathname === '');
+    } catch (e) {
+      return false;
     }
   }
 

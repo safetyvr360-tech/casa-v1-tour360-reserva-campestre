@@ -69,5 +69,5 @@
 .rc-enviar:disabled { opacity: .6; cursor: wait; }
 
 @media (max-width: 600px) {
-  .rc-abrir { bottom: calc(118px + env(safe-area-inset-bottom)); padding: 11px 18px; font-size: 13px; }
+  .rc-abrir { bottom: calc(118px + env(safe-area-inset-bottom)); padding: 11px 16px; font-size: 13px; letter-spacing: .06em; white-space: nowrap; }
 }

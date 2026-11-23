@@ -1,0 +1,73 @@
+/* Formulario de consulta sobre el tour 360 (lo carga index.html). */
+.rc-consulta {
+  --rc-azul: #0B2B46;
+  --rc-cafe: #A98969;
+  --rc-crema: #F7F3EE;
+  --rc-error: #B3261E;
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+.rc-consulta [hidden] { display: none !important; }
+
+.rc-abrir {
+  position: fixed; z-index: 2147483000;
+  left: 50%; transform: translateX(-50%);
+  bottom: calc(150px + env(safe-area-inset-bottom));
+  padding: 12px 22px; border: 0; border-radius: 4px;
+  background: var(--rc-cafe); color: var(--rc-azul);
+  font-family: inherit; font-weight: 700; font-size: 14px; line-height: 1;
+  letter-spacing: .12em; text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(0,0,0,.35); cursor: pointer;
+}
+.rc-abrir:hover { filter: brightness(1.07); }
+.rc-abrir:focus-visible, .rc-enviar:focus-visible, .rc-cerrar:focus-visible {
+  outline: 3px solid #fff; outline-offset: 2px;
+}
+
+.rc-fondo {
+  position: fixed; inset: 0; z-index: 2147483001;
+  display: flex; align-items: center; justify-content: center;
+  padding: 16px; background: rgba(11,43,70,.55);
+}
+.rc-caja {
+  position: relative; width: 100%; max-width: 420px;
+  max-height: calc(100% - 8px); overflow-y: auto; box-sizing: border-box;
+  padding: 26px 24px 22px; border-radius: 8px;
+  background: var(--rc-crema); color: var(--rc-azul);
+  box-shadow: 0 18px 50px rgba(0,0,0,.4);
+}
+.rc-caja h2 { margin: 0 32px 6px 0; font-size: 20px; letter-spacing: .02em; }
+.rc-intro { margin: 0 0 16px; font-size: 14px; color: #3d5368; }
+.rc-cerrar {
+  position: absolute; top: 10px; right: 10px; width: 36px; height: 36px;
+  border: 0; border-radius: 50%; background: transparent;
+  color: var(--rc-azul); font-size: 26px; line-height: 1; cursor: pointer;
+}
+.rc-cerrar:hover { background: rgba(11,43,70,.08); }
+
+.rc-caja form { display: grid; gap: 12px; }
+.rc-caja label { display: grid; gap: 4px; font-size: 13px; font-weight: 600; }
+.rc-caja input, .rc-caja select, .rc-caja textarea {
+  width: 100%; box-sizing: border-box; padding: 10px 12px;
+  border: 1px solid #c9bba9; border-radius: 4px; background: #fff;
+  color: #1b2a38; font-family: inherit; font-size: 16px; line-height: 1.3;
+}
+.rc-caja textarea { resize: vertical; }
+.rc-caja input:focus, .rc-caja select:focus, .rc-caja textarea:focus {
+  outline: 2px solid var(--rc-cafe); border-color: var(--rc-cafe);
+}
+.rc-check { grid-template-columns: auto 1fr; align-items: start; gap: 8px !important; font-weight: 400 !important; font-size: 12px !important; color: #3d5368; }
+.rc-check input { width: 18px; height: 18px; margin: 1px 0 0; accent-color: var(--rc-azul); }
+.rc-trampa { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+.rc-estado { min-height: 1.2em; margin: 0; font-size: 13px; font-weight: 600; color: #2e6b3a; }
+.rc-estado.rc-error { color: var(--rc-error); }
+.rc-enviar {
+  padding: 13px; border: 0; border-radius: 4px;
+  background: var(--rc-azul); color: #fff; cursor: pointer;
+  font-family: inherit; font-weight: 700; font-size: 14px; line-height: 1; letter-spacing: .12em; text-transform: uppercase;
+}
+.rc-enviar:disabled { opacity: .6; cursor: wait; }
+
+@media (max-width: 600px) {
+  .rc-abrir { bottom: calc(118px + env(safe-area-inset-bottom)); padding: 11px 18px; font-size: 13px; }
+}
